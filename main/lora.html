@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+   </head>
+   <body>
+      <div class="container center_div">
+         <form method='post' action='/lora_config1' id="loraForm" onsubmit="submitForm()" class="form-horizontal" >
+            <h4 class="text-center">Lora Configuration</h4><br> </br>
+            <div class="form-group">
+               <label for='DeviceName' class="control-label col-sm-4">Device Name:</label>
+               <div class="col-sm-4">
+                  <input type='text' class="form-control" id='DeviceName' name='DeviceName' placeholder='Enter device name'>
+               </div>
+            </div>
+            <!-- Align Mac ID label and value side by side -->
+            <div id='MacIDContainer' class="form-group">
+               <label for='Mac ID' class="control-label col-sm-4"> Mac - ID :  </label>
+               <div class="col-sm-4">
+                     <input type='text' class="form-control" id='Mac_ID' value=%MAC_ADDRESS_VALUE%>
+               </div>
+            </div>
+            <div class="form-group">
+               <label class="col-sm-4 control-label">Provisioning Mode:  </label>
+               <div class="col-sm-4">
+                  <label class="radio-inline"> <input type="radio" name="ProvisioningMode" id="provisioningModeAbp" value="ABP" onclick="showABPFields()"> ABP </label>
+                  <label class="radio-inline"> <input type="radio" name="ProvisioningMode" id="provisioningModeOtaa" value="OTAA" onclick="showOTAAFields()">  OTAA </label>
+               </div>
+            </div>
+            
+            <div id="ABPFields">
+               <div class="form-group">
+                  <label for='DEV_ADDR' class="control-label col-sm-4">DEV_ADDR (Device Address):</label>
+                  <div class="col-sm-4">
+                     <input type='text' class="form-control" id='DEV_ADDR' name='DEV_ADDR' value='%DEV_ADDR_8bit_Device_Address%' pattern="[0-9a-fA-F]{8}" title="Must be a 8-character HEX code string" maxlength="8" oninput="validateHexInput(this)">
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for='APPsKEY' class="control-label col-sm-4">APPsKEY (Application Session Key):</label>
+                  <div class="col-sm-4">
+                     <input type='text' class="form-control" id='APPsKEY' name='APPsKEY' value='%APPsKEY_32bit_Application_Session_Key%' pattern="[0-9a-fA-F]{32}" title="Must be a 32-character HEX code string" maxlength="32" oninput="validateHexInput(this)">
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for='NWKSKEY' class="control-label col-sm-4">NWKSKEY (Network Session Key):</label>
+                  <div class="col-sm-4">
+                     <input type='text' class="form-control" id='NWKSKEY' name='NWKSKEY' value='%NWKSKEY_32bit_Network_Session_Key%' pattern="[0-9a-fA-F]{32}" title="Must be a 32-character HEX code string" maxlength="32" oninput="validateHexInput(this)">
+                  </div>
+               </div>
+            </div>
+            <div id="OTAAFields">
+               <div class="form-group">
+                  <div class="form-group">
+                     <label for='DEVEUI' class="control-label col-sm-4">DEVEUI (Unique End Device Address):</label>
+                     <div class="col-sm-4">
+                        <input type='text' class="form-control" id='DEVEUI' name='DEVEUI' value='%DEVEUI_16bit_Unique_End_Device_Address%' pattern="[0-9a-fA-F]{16}" title="Must be a 16-character HEX code string" maxlength="16" oninput="validateHexInput(this)">
+                     </div>
+                  </div>
+                  <label for='APPEUI' class="control-label col-sm-4">APPEUI (Unique Application Identifier):</label>
+                  <div class="col-sm-4">
+                     <input type='text' class="form-control" id='APPEUI' name='APPEUI' value = '%APPEUI_16bit_Unique_Application_Identifier%' pattern="[0-9a-fA-F]{16}" title="Must be a 16-character HEX code string" maxlength="16" oninput="validateHexInput(this)">
+                  </div>
+               </div>
+               
+               <div class="form-group">
+                  <label for='APPKEY' class="control-label col-sm-4">APPKEY (Application Key):</label>
+                  <div class="col-sm-4">
+                     <input type='text' class="form-control" id='APPKEY' name='APPKEY' value='%APPKEY_32bit_Application_Key%' pattern="[0-9a-fA-F]{32}" title="Must be a 32-character HEX code string" maxlength="32" oninput="validateHexInput(this)">
+                  </div>
+               </div>
+            </div>
+
+
+
+
+           
+            <div class="form-group">
+               <div class="col-sm-4">
+               </div>
+               <div class="col-sm-4">
+                  <button type="submit"  class="btn btn-primary">Save</button>
+               </div>
+            </div>
+         </form>
+      </div>
+      <script>
+         hide(document.getElementById('ABPFields'));
+         hide(document.getElementById('OTAAFields'));
+         function hide (elements) {
+               elements = elements.length ? elements : [elements];
+               for (var index = 0; index < elements.length; index++) {
+                  elements[index].style.display = 'none';
+               }
+          }
+         
+         //document.getElementById("ABPFields").setAttribute
+         document.getElementById("Mac_ID").setAttribute("readonly", "true");
+         // var macaddressValue = "abc"
+         // document.getElementById("macaddressvalue").setAttribute('value', macaddressValue);
+         
+         function submitForm() {
+             var provisioningMode = document.querySelector('input[name="ProvisioningMode"]:checked').value;
+         
+             var formData = {
+                 DeviceName: document.getElementById('DeviceName').value,
+                 Mac_ID: document.getElementById('Mac_ID').textContent,
+                 ProvisioningMode: provisioningMode
+             };
+         
+             if (provisioningMode === 'OTAA') {
+                 formData.APPEUI = document.getElementById('APPEUI').value;
+                 formData.DEVEUI = document.getElementById('DEVEUI').value;
+                 formData.APPKEY = document.getElementById('APPKEY').value;
+         
+                 // Validate hex code strings for OTAA
+                 if (!isValidHex(formData.APPEUI) || !isValidHex(formData.DEVEUI) || !isValidHex(formData.APPKEY)) {
+                     alert('Please enter valid hex code strings for OTAA.');
+                     return false; // Prevent form submission
+                 }
+         
+                 // Logic specific to OTAA mode
+                 // Add your OTAA-specific logic here
+                 console.log('Executing OTAA-specific logic:', formData);
+         
+             } else if (provisioningMode === 'ABP') {
+                 formData.DEV_ADDR = document.getElementById('DEV_ADDR').value;
+                 formData.APPsKEY = document.getElementById('APPsKEY').value;
+                 formData.NWKSKEY = document.getElementById('NWKSKEY').value;
+         
+                 // Validate hex code strings for ABP
+                 if (!isValidHex(formData.DEV_ADDR) || !isValidHex(formData.APPsKEY) || !isValidHex(formData.NWKSKEY)) {
+                     alert('Please enter valid hex code strings for ABP.');
+                     return false; // Prevent form submission
+                 }
+         
+                 // Logic specific to ABP mode
+                 // Add your ABP-specific logic here
+                 console.log('Executing ABP-specific logic:', formData);
+             }
+         
+             // Replace the following line with your logic to send data to the server
+             // Mocking server data submission by logging to console
+             console.log("Form data to be sent:", formData);
+         
+             // Prevent the default form submission
+             return false;
+         }
+         
+         function isValidHex(hexString) {
+             var hexRegex = /^[0-9a-fA-F]+$/;
+             return hexRegex.test(hexString);
+         }
+         
+         function showOTAAFields() {
+             document.getElementById("OTAAFields").style.display = "block";
+             document.getElementById("ABPFields").style.display = "none";
+         }
+         
+         function showABPFields() {
+             document.getElementById("OTAAFields").style.display = "none";
+             document.getElementById("ABPFields").style.display = "block";
+         }
+         
+         function validateHexInput(inputElement) {
+             var hexRegex = /^[0-9a-fA-F]+$/;
+             var inputValue = inputElement.value;
+         
+             if (!hexRegex.test(inputValue)) {
+                 // Display an error message or take appropriate action
+                 inputElement.setCustomValidity('Invalid HEX code');
+             } else {
+                 // Clear any previous error message
+                 inputElement.setCustomValidity('');
+             }
+         }
+      </script>
+   </body>
+</html>

@@ -1,0 +1,74 @@
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #2c3e50; /* Dark Blue */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #34495e; /* Dark Grayish Blue */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            width: 300px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #ecf0f1; /* Light Gray */
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            border: 1px solid #bdc3c7; /* Light Gray */
+            border-radius: 5px;
+            background-color: #ecf0f1; /* Light Gray */
+            color: #2c3e50; /* Dark Blue */
+            font-size: 14px;
+        }
+
+        input[type="submit"] {
+            background-color: #3498db; /* Dodger Blue */
+            color: #ffffff;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #2980b9; /* Darker Dodger Blue */
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <form method='post' action='/enter'>
+        <label for='username'>Username:</label>
+        <input type='text' id='username' name='username'><br>
+        <label for='password'>Password:</label>
+        <input type='password' id='password' name='password'><br>
+        <input type='submit' value='Login'>
+    </form>
+
+
+    
+
+
+
+</body>
+
+</html>

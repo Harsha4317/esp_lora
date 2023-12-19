@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+   </head>
+   <body>
+      <div class="container center_div">
+         <form method='post' action='/wifipost' id="wifiForm" onsubmit="submitForm()" class="form-horizontal" enctype="multipart/form-data">
+            <h4 class="text-center">Wi-Fi Configuration</h4><br> </br>
+          
+
+            <div class="form-group">
+               <label class="col-sm-4 control-label">Provisioning Mode :</label>
+               <div class="col-sm-4">
+                  <label class="radio-inline"> <input type="radio" name= "ProvisioningMode" id="provisioningModeOtaa" value="MQTTS" onclick="showOTAAFields()"> MQTTS </label>
+                  <label class="radio-inline"> <input type="radio" name= "ProvisioningMode" id="provisioningModeAbp" value="MQTT" onclick="showABPFields()"> MQTT </label>
+               </div>
+            </div>
+            
+            <div id="OTAAFields">
+               <div class="form-group">
+                  <label for='Client_Certificate' class="control-label col-sm-4">Client Certificate :</label>
+                  <div class="col-sm-4">
+                     <input type='file' class="form-control" id='Client_Certificate' name= 'Client_Certificate'>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for='Root_Certificate' class="control-label col-sm-4">Root Certificate :</label>
+                  <div class="col-sm-4">
+                     <input type='file' class="form-control" id='Root_Certificate' name='Root_Certificate'>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for='Client_Private_Key' class="control-label col-sm-4">Client Private Key:</label>
+                  <div class="col-sm-4">
+                     <input type='file' class="form-control" id='Client_Private_Key' name='Client_Private_Key'>
+                  </div>
+               </div>
+            </div>
+
+             
+           <!-- <div class="form-group">
+               <label for='SSID' class="control-label col-sm-4">SSID :</label>
+               <div class="col-sm-4">
+                  <input type='text' class="form-control" id='SSID'  placeholder='Enter SSID '>
+               </div>
+            </div>
+            
+            <div class="form-group">
+               <label for='Password' class="control-label col-sm-4">Password :</label>
+               <div class="col-sm-4">
+                  <input type='Password' class="form-control" id='Password'  placeholder='Enter Password '>
+               </div>
+            </div>
+           
+            <div class="form-group">
+               <label for='Unique_ID' class="control-label col-sm-4"> Unique ID :</label>
+               <div class="col-sm-4">
+                  <input type='text' class="form-control" id='Unique_ID' name= 'Unique_ID' value='%Unique_ID%' readonly>
+               </div>
+            </div>
+            
+            <div class="form-group">
+               <label for='Client_ID' class="control-label col-sm-4"> Client ID :</label>
+               <div class="col-sm-4">
+                  <input type='text' class="form-control" id='Client_ID' name= 'Client_ID' placeholder='Enter Client ID'>
+               </div>
+            </div>
+            
+            <div class="form-group">
+               <label for='Broker_Url' class="control-label col-sm-4">Broker Url :</label>
+               <div class="col-sm-4">
+                  <input type='text' class="form-control" id='Broker_Url' name='Broker_Url' placeholder='Enter Broker Url'>
+               </div>
+            </div>
+            
+            <div class="form-group">
+               <label for='Port_Number' class="control-label col-sm-4">Port Number :</label>
+               <div class="col-sm-4">
+                  <input type='text' class="form-control" id='Port_Number' name= 'Port_Number' placeholder='Enter Port Number'>
+               </div>
+            </div> -->
+
+         
+            
+            <div class="form-group">
+               <div class="col-sm-4"></div>
+               <div class="col-sm-4">
+                  <button type="submit" class="btn btn-primary">Save</button>
+               </div> 
+            </div>
+         </form>
+      </div>
+      <script>
+         hide(document.getElementById('OTAAFields'));
+         hide(document.getElementById('ABPFields'));
+         
+         function hide(elements) {
+            elements = elements.length ? elements : [elements];
+            for (var index = 0; index < elements.length; index++) {
+               elements[index].style.display = 'none';
+            }
+         }
+         
+         function submitForm() {
+            var formData = new FormData(document.getElementById('wifiForm'));
+            // Additional logic if needed...
+            console.log(formData);
+            return false;
+         }
+         
+         function showOTAAFields() {
+            document.getElementById("OTAAFields").style.display = "block";
+            document.getElementById("ABPFields").style.display = "none";
+         }
+         
+         function showABPFields() {
+            document.getElementById("OTAAFields").style.display = "none";
+            document.getElementById("ABPFields").style.display = "block";
+         }
+      </script>
+   </body>
+</html>
