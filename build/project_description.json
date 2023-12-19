@@ -1,7 +1,7 @@
 {
     "version":            "1",
     "project_name":       "wss_server",
-    "project_version":    "1",
+    "project_version":    "b25bee3-dirty",
     "project_path":       "/Users/harsha/Desktop/esp_lora/wss_server",
     "idf_path":           "/Users/harsha/esp/esp-idf",
     "build_dir":          "/Users/harsha/Desktop/esp_lora/wss_server/build",
